@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'aphrodite';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 import Text from './lib/Text';
 import customStyleSheet from './lib/customStyleSheet';
@@ -12,6 +12,14 @@ const GET_USER_QUERY = gql`
     user(id: $id) {
       firstName
       lastName
+    }
+  }
+`;
+
+const TEST_MUTATION = gql`
+  mutation TestMutation($arg: String!) {
+    testMutation(testArg: $arg) {
+      result
     }
   }
 `;
@@ -37,6 +45,12 @@ function App() {
       id: 1,
     },
   });
+  const [testMutate] = useMutation(TEST_MUTATION, {
+    update(cache, { data: { testMutation: { result } }}) {
+      console.log(result);
+      // DO cache mutations here.
+    },
+  });
 
   const user = data && data.user;
   const titleText = user
@@ -53,6 +67,16 @@ function App() {
       <Text title1>
         {titleText}
       </Text>
+      <button
+        type="button"
+        onClick={() => testMutate({
+          variables: {
+            arg: 'test',
+          },
+        })}
+      >
+        Button
+      </button>
     </div>
   );
 }
