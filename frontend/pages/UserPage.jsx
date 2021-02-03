@@ -3,10 +3,10 @@ import { css } from 'aphrodite';
 import { gql, useQuery } from '@apollo/client';
 import { Switch, Route } from 'react-router';
 
-import Text from './lib/Text';
-import customStyleSheet from './lib/customStyleSheet';
-import evergreenIcon from './img/evergreen_icon.png';
-import getImageUri from './utils/getImageUri';
+import Text from '../lib/Text';
+import customStyleSheet from '../lib/customStyleSheet';
+import evergreenIcon from '../img/evergreen_icon.png';
+import getImageUri from '../utils/getImageUri';
 
 const GET_USER_QUERY = gql`
   query GetUser($id: Int!) {
@@ -32,40 +32,37 @@ const styles = customStyleSheet(({ color, bp }) => ({
   },
 }));
 
-function App() {
+function UserPage({ match }) {
   const { data } = useQuery(GET_USER_QUERY, {
     variables: {
-      id: 1,
+      id: match.params.id,
     },
   });
 
 
   const user = data && data.user;
-  const titleText = user
-    ? `Welcome to Evergreen ${user.firstName} ${user.lastName}!`
-    : 'Welcome to Evergreen!';
   return (
     <div>
       <div className={css(styles.container)}>
-        <img
-          className={css(styles.logo)}
-          src={getImageUri(evergreenIcon)}
-          alt="logo"
-        />
-        <Text title1>
-          {titleText}
-        </Text>
-        <div>
+        {user && (
           <div>
-            <a href="/vendor_management">Manage vendors</a>
+            <Text title1>
+              Manage {user.firstName} {user.lastName}’s profile
+            </Text>
+            <Text>
+              First name: {user.firstName}
+            </Text>
+            <Text>
+              Last name: {user.lastName}
+            </Text>
+            <Text>
+              Email: {user.email}
+            </Text>
           </div>
-          <div>
-            <a href="/user_management">Manage users</a>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default App;
+export default UserPage;

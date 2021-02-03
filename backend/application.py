@@ -10,11 +10,17 @@ app = Flask(__name__)
 app.debug = True
 
 @app.route('/')
+@app.route('/vendor_management')
+@app.route('/user_manager')
 def index():
   return render_template(
     'index.html',
     js_url='//localhost:8080/main.bundle.js'
   )
+
+@app.route('/user/<path:path>')
+def index_with_path(path):
+  return index()
 
 app.add_url_rule('/graphql', view_func=GraphQLView.as_view(
   'graphql',

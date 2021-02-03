@@ -47,3 +47,8 @@ Homepage: http://localhost:5000
 - React: https://reactjs.org/docs/getting-started.html
 - Graphql backend (Graphene): https://graphene-python.org/
 - Graphql frontend (Apollo): https://www.apollographql.com/docs/react/
+
+
+# Checkout branch
+`git clone git@github.com:Greenbax/interview-template.git`
+`git checkout -b users origin/users`

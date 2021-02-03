@@ -3,6 +3,9 @@ from backend.models.user_model import UserModel
 from backend.models.vendor_model import VendorModel
 import csv
 
+FIRST_NAMES = ['John', 'Kevin', "Laura", 'Kelly', "Joe", 'Jill', 'Jack', 'James', 'Michael', 'Mary', 'Linda', 'Elizabeth']
+LAST_NAMES = ['Smith', 'Doe', 'Johnson', 'Brown', 'Williams', 'Jones', 'Miller']
+
 def init_db():
   # import all modules here that might define models so that
   # they will be registered properly on the metadata.  Otherwise
@@ -12,7 +15,6 @@ def init_db():
 
   user = UserModel(first_name="Test", last_name="User")
   db_session.add(user)
-
 
   with open('vendors.csv', 'r') as f:
     for i, line in enumerate(csv.reader(f)):
@@ -27,4 +29,9 @@ def init_db():
         risk=risk,
         tier=tier
       ))
+
+  for fn in FIRST_NAMES:
+    for ln in LAST_NAMES:
+      user = UserModel(first_name=fn, last_name=ln, email=f'{fn}.{ln}@tryevergreen.com', is_admin=False)
+      db_session.add(user)
   db_session.commit()
