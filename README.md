@@ -5,6 +5,11 @@ python3 -m venv env
 source env/bin/activate # you need to run this before running any python commands
 ```
 
+## Fetch remote branch
+git clone git@github.com:Greenbax/interview-template.git
+git fetch --all
+git checkout users
+
 ## Install dependencies
 ```
 pip install -r requirements.txt
@@ -19,7 +24,7 @@ init_db()
 
 ## Start backend server
 ```
-python backend/application.py
+PYTHONPATH=$(pwd) python backend/application.py
 ```
 Changes to backend code are auto reloaded.
 
