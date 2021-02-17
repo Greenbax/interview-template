@@ -6,9 +6,11 @@ source env/bin/activate # you need to run this before running any python command
 ```
 
 ## Fetch remote branch
+```
 git clone git@github.com:Greenbax/interview-template.git
 git fetch --all
 git checkout users
+```
 
 ## Install dependencies
 ```
