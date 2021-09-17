@@ -1,11 +1,11 @@
-import React from 'react';
-import { css } from 'aphrodite';
-import { gql, useQuery } from '@apollo/client';
+import React from "react";
+import { css } from "aphrodite";
+import { gql, useQuery } from "@apollo/client";
 
-import Text from './lib/Text';
-import customStyleSheet from './lib/customStyleSheet';
-import evergreenIcon from './img/evergreen_icon.png';
-import getImageUri from './utils/getImageUri';
+import Text from "./lib/Text";
+import customStyleSheet from "./lib/customStyleSheet";
+import evergreenIcon from "./img/evergreen_icon.png";
+import getImageUri from "./utils/getImageUri";
 
 const GET_USER_QUERY = gql`
   query GetUser($id: Int!) {
@@ -24,10 +24,10 @@ const styles = customStyleSheet(({ color, bp }) => ({
   },
   container: {
     backgroundColor: color.background,
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 }));
 
@@ -41,7 +41,7 @@ function App() {
   const user = data && data.user;
   const titleText = user
     ? `Welcome to Evergreen ${user.firstName} ${user.lastName}!`
-    : 'Welcome to Evergreen!';
+    : "Welcome to Evergreen!";
 
   return (
     <div className={css(styles.container)}>
@@ -50,9 +50,8 @@ function App() {
         src={getImageUri(evergreenIcon)}
         alt="logo"
       />
-      <Text title1>
-        {titleText}
-      </Text>
+      <Text title1>{titleText}</Text>
+      <a href="/user-management">Manage users</a>
     </div>
   );
 }
