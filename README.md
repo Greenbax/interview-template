@@ -23,6 +23,8 @@ PYTHONPATH=$(pwd) python backend/application.py
 ```
 Changes to backend code are auto reloaded.
 
+If you run into an issue like `TypeError: expected str, bytes or os.PathLike object, not NoneType`, try commenting out this [line](https://github.com/Greenbax/interview-template/blob/master/backend/application.py#L2)
+
 # Frontend setup
 ## Build packages
 ```
