@@ -1,3 +1,4 @@
+import { shape, string } from 'prop-types';
 import React from 'react';
 import Collapsible from 'react-collapsible-paragraph';
 import styled from 'styled-components';
@@ -17,9 +18,23 @@ const VendorCell = ({ cell }) => {
   );
 };
 
+VendorCell.propTypes = {
+  cell: shape({
+    value: shape({
+      description: string.isRequired,
+      link: string.isRequired,
+      name: string.isRequired,
+    }),
+  }).isRequired,
+};
+
 const DescriptionBox = ({ description }) => (
   <Collapsible lines={3}>{description}</Collapsible>
 );
+
+DescriptionBox.propTypes = {
+  description: string.isRequired,
+};
 
 const VendorCellFrame = styled.td`
   max-width: 20vw;
