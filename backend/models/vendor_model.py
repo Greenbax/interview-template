@@ -8,7 +8,7 @@ class VendorModel(Base):
   id = Column(Integer, primary_key=True)
   name = Column(String)
   description = Column(String)
-  external_link = Column(String)
+  link = Column(String)
   category = Column(String)
   status = Column(Integer)
   risk = Column(String)

@@ -21,7 +21,7 @@ def init_db():
       db_session.add(VendorModel(
         name=name,
         description=description,
-        external_link=website,
+        link=website,
         category=category,
         status=int(status),
         risk=risk,
