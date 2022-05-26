@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
-import {
-  arrayOf, number, shape, string, func, any,
-} from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import styled from 'styled-components';
 import Select from 'react-select';
 import { gql, useMutation } from '@apollo/client';
@@ -56,8 +54,8 @@ const CatStatusCell = ({ cell }) => {
 
   const [selectedOption, setSelectedOption] = useState(defaultValue);
   const lastUpdatedValue = useRef(defaultValue);
-  const [mutateStatus, statusRes] = useMutation(UPDATE_VENDOR_STATUS);
-  const [mutateCat, catRes] = useMutation(UPDATE_VENDOR_CAT);
+  const [mutateStatus] = useMutation(UPDATE_VENDOR_STATUS);
+  const [mutateCat] = useMutation(UPDATE_VENDOR_CAT);
 
   const onCompleted = (data) => {
     const { vendor } = data.data.updateVendor;
@@ -65,7 +63,7 @@ const CatStatusCell = ({ cell }) => {
     lastUpdatedValue.current = SelectableOption(vendor, label);
   };
 
-  const onError = (err) => {
+  const onError = () => {
     setSelectedOption(lastUpdatedValue.current);
   };
   const onChange = (selected) => {

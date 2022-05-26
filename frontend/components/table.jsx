@@ -44,6 +44,7 @@ const Table = ({ columns, data }) => {
         <thead>
           <tr>
             {headers.map((column) => (
+              // eslint-disable-next-line react/jsx-key
               <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
                 <span>
@@ -58,6 +59,7 @@ const Table = ({ columns, data }) => {
             (row, i) => {
               prepareRow(row);
               return (
+                // eslint-disable-next-line react/jsx-key
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => _renderTableCell(cell))}
                 </tr>
