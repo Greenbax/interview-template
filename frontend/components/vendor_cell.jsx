@@ -12,7 +12,7 @@ const VendorCell = ({ cell }) => {
       <h4>{name}</h4>
       <ReadMoreReact text={description} readMoreText="> Read More" />
       <br />
-      <a href={link} target="_blank">{link}</a>
+      <a href={link} target="_blank" rel="noreferrer">{link}</a>
     </VendorCellFrame>
   );
 };

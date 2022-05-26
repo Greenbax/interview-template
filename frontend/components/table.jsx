@@ -3,7 +3,6 @@ import {
 } from 'prop-types';
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
-import { ReactComponent as SortIcon } from '../icons/arrow-sort.svg';
 import VendorCell from './vendor_cell.jsx';
 import CatStatusCell from './cat_status_cell.jsx';
 
@@ -37,7 +36,6 @@ const Table = ({ columns, data }) => {
     if (column.isSorted) {
       return column.isSortedDesc ? ' 🔽' : ' 🔼';
     }
-    return <SortIcon />;
   };
 
   return (
