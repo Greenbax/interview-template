@@ -2,6 +2,7 @@ import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
+import CsvButton from './components/csv_button.jsx';
 import VendorTable from './components/table.jsx';
 import FormatVendorData from './utils/format_vendor_data.js';
 
@@ -43,6 +44,9 @@ const App = () => {
   if (vendorsError) return <h1>{vendorsError.message}</h1>; // TODO make it fancier
   return (
     <Backframe>
+      <ActionBar>
+        <CsvButton vendorsData={vendorsData.vendors} />
+      </ActionBar>
       <StyledTable>
         <VendorTable
           columns={columns}
@@ -55,6 +59,16 @@ const App = () => {
 
 const Backframe = styled.div`
   display: flex;
+  flex-direction: column;
+  padding-left: 5vw;
+  padding-right: 5vw;
+`;
+
+const ActionBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
   padding-left: 5vw;
   padding-right: 5vw;
 `;
