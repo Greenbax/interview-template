@@ -38,12 +38,16 @@ const App = () => {
     ],
     [],
   );
+
   if (vendorsLoading) return <h1>Loading</h1>; // TODO make it fancier
   if (vendorsError) return <h1>{vendorsError.message}</h1>; // TODO make it fancier
   return (
     <Backframe>
       <StyledTable>
-        <VendorTable columns={columns} data={FormatVendorData(vendorsData.vendors)} />
+        <VendorTable
+          columns={columns}
+          data={FormatVendorData(vendorsData.vendors)}
+        />
       </StyledTable>
     </Backframe>
   );

@@ -1,11 +1,23 @@
 import {
-  arrayOf, number, shape, string,
+  arrayOf, number, shape, string, func,
 } from 'prop-types';
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
 import VendorCell from './vendor_cell.jsx';
+import CatStatusCell from './cat_status_cell.jsx';
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, onCatStatusChange }) => {
+  const _renderTableCell = (cell) => {
+    switch (true) {
+      case cell.column.Header === 'VENDOR': return <VendorCell cell={cell} />;
+      case ['CATEGORY', 'STATUS'].indexOf(cell.column.Header) > -1:
+        return (
+          <CatStatusCell cell={cell} onChange={onCatStatusChange} />
+        );
+      default: return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+    }
+  };
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -44,7 +56,7 @@ const Table = ({ columns, data }) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => RenderTableCell(cell))}
+                  {row.cells.map((cell) => _renderTableCell(cell))}
                 </tr>
               );
             },
@@ -57,6 +69,7 @@ const Table = ({ columns, data }) => {
 };
 
 Table.propTypes = {
+  onCatStatusChange: func.isRequired,
   columns: arrayOf(shape({
     Header: string.isRequired,
     accessor: string.isRequired,
@@ -68,17 +81,10 @@ Table.propTypes = {
       link: string.isRequired,
     }).isRequired,
     category: string.isRequired,
-    status: string.isRequired,
+    status: number.isRequired,
     tier: string.isRequired,
     risk: string.isRequired,
   })).isRequired,
-};
-
-const RenderTableCell = (cell) => {
-  switch (cell.column.Header) {
-    case 'VENDOR': return <VendorCell cell={cell} />;
-    default: return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-  }
 };
 
 export default Table;
