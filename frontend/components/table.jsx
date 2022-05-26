@@ -3,16 +3,17 @@ import {
 } from 'prop-types';
 import React from 'react';
 import { useTable, useSortBy } from 'react-table';
+import { ReactComponent as SortIcon } from '../icons/arrow-sort.svg';
 import VendorCell from './vendor_cell.jsx';
 import CatStatusCell from './cat_status_cell.jsx';
 
-const Table = ({ columns, data, onCatStatusChange }) => {
+const Table = ({ columns, data }) => {
   const _renderTableCell = (cell) => {
     switch (true) {
       case cell.column.Header === 'VENDOR': return <VendorCell cell={cell} />;
       case ['CATEGORY', 'STATUS'].indexOf(cell.column.Header) > -1:
         return (
-          <CatStatusCell cell={cell} onChange={onCatStatusChange} />
+          <CatStatusCell cell={cell} />
         );
       default: return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
     }
@@ -31,6 +32,14 @@ const Table = ({ columns, data, onCatStatusChange }) => {
     },
     useSortBy,
   );
+
+  const renderFilterIcon = (column) => {
+    if (column.isSorted) {
+      return column.isSortedDesc ? ' 🔽' : ' 🔼';
+    }
+    return <SortIcon />;
+  };
+
   return (
     <>
       <table {...getTableProps()}>
@@ -40,11 +49,7 @@ const Table = ({ columns, data, onCatStatusChange }) => {
               <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
                 <span>
-                  {column.isSorted
-                    ? column.isSortedDesc
-                      ? ' 🔽'
-                      : ' 🔼'
-                    : ''}
+                  {renderFilterIcon(column)}
                 </span>
               </th>
             ))}
@@ -69,7 +74,6 @@ const Table = ({ columns, data, onCatStatusChange }) => {
 };
 
 Table.propTypes = {
-  onCatStatusChange: func.isRequired,
   columns: arrayOf(shape({
     Header: string.isRequired,
     accessor: string.isRequired,
