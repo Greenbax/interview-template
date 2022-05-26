@@ -1,6 +1,6 @@
 import { shape, string } from 'prop-types';
 import React from 'react';
-import Collapsible from 'react-collapsible-paragraph';
+import ReadMoreReact from 'read-more-react';
 import styled from 'styled-components';
 
 import Constants from '../config/constants.js';
@@ -10,8 +10,7 @@ const VendorCell = ({ cell }) => {
   return (
     <VendorCellFrame {...cell.getCellProps()}>
       <h4>{name}</h4>
-      <DescriptionBox description={description} />
-      <br />
+      <ReadMoreReact text={description} readMoreText="> Read More" />
       <br />
       <a href={link} target="_blank">{link}</a>
     </VendorCellFrame>
@@ -26,14 +25,6 @@ VendorCell.propTypes = {
       name: string.isRequired,
     }),
   }).isRequired,
-};
-
-const DescriptionBox = ({ description }) => (
-  <Collapsible lines={3}>{description}</Collapsible>
-);
-
-DescriptionBox.propTypes = {
-  description: string.isRequired,
 };
 
 const VendorCellFrame = styled.td`
